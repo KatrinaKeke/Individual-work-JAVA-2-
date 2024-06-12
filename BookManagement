@@ -1,0 +1,96 @@
+#Main.java 
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+ 
+        BookManagement bookManagement = new BookManagement();
+
+        Scanner scanner = new Scanner(System.in);
+
+ 
+        System.out.println("Heeelouuuu! Welcome to Katrinas bookshelf!");
+        System.out.println("You can add, remove, and view books in the list.");
+
+     
+        System.out.println("\nList of books in Katrinas bookshelf:");
+        bookManagement.displayBooks();
+
+        while (true) {
+    
+            System.out.println("\nWhat do you want to do? Enter your command:");
+              System.out.println("Commands: add [book name], remove [book name], view, exit");
+            String command = scanner.nextLine();
+
+     
+            String[] parts = command.split(" ", 2);
+            String action = parts[0];
+
+      
+            if (action.equalsIgnoreCase("add") && parts.length == 2) {
+                bookManagement.addBook(parts[1]);
+            } else if (action.equalsIgnoreCase("remove") && parts.length == 2) {
+                bookManagement.removeBook(parts[1]);
+            } else if (action.equalsIgnoreCase("view")) {
+                bookManagement.displayBooks();
+            } else if (action.equalsIgnoreCase("exit")) {
+                
+                System.out.println("Exiting the application. Goodbye!");
+                break;
+            } else {
+                System.out.println("Invalid command. Please try again.");
+            }
+        }
+        
+
+        scanner.close();
+    }
+}
+
+
+#BookManagement.java
+
+import java.util.ArrayList;
+
+public class BookManagement {
+  
+    private ArrayList<String> books;
+
+
+    public BookManagement() {
+        books = new ArrayList<>();
+     
+        books.add("The Great Gatsby");
+        books.add("1984");
+        books.add("To Kill a Mockingbird");
+        books.add("Pride and Prejudice");
+        books.add("The Catcher in the Rye");
+    }
+
+
+    public void addBook(String book) {
+        books.add(book);
+        System.out.println(book + " has been added to the list.");
+    }
+
+    public void removeBook(String book) {
+        if (books.remove(book)) {
+            System.out.println(book + " has been removed from the list.");
+        } else {
+            System.out.println(book + " is not in the list.");
+        }
+    }
+
+    public void displayBooks() {
+        if (books.isEmpty()) {
+            System.out.println("The book list is empty.");
+        } else {
+            System.out.println("Books in the list:");
+            for (String book : books) {
+                System.out.println("- " + book);
+            }
+        }
+    }
+}
+
